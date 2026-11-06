@@ -84,6 +84,42 @@ header p {
   color: var(--mut);
 }
 
+.tabs {
+  display: flex;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 20px auto 0;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab-button {
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--mut);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab-button[aria-selected="true"] {
+  border-bottom-color: var(--a);
+  color: var(--ink);
+}
+
+.tab-button:focus-visible,
+.calendar-nav:focus-visible,
+.calendar-day:focus-visible {
+  outline: 3px solid var(--a);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
 main {
   display: grid;
   grid-template-columns: 230px 1fr;
@@ -136,6 +172,330 @@ select {
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 16px;
+}
+
+.page-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+
+.calendar-heading,
+.calendar-controls {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-heading {
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.calendar-heading h2,
+.medication-card h2 {
+  margin: 0 0 2px;
+  font-size: 20px;
+}
+
+.calendar-heading .sub,
+.medication-card > .sub {
+  margin-bottom: 0;
+}
+
+.calendar-controls {
+  gap: 12px;
+}
+
+.calendar-controls h3 {
+  min-width: 150px;
+  margin: 0;
+  text-align: center;
+  font-size: 17px;
+}
+
+.calendar-nav {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(220px, 1fr);
+  gap: 20px;
+}
+
+.calendar-table-wrap {
+  overflow-x: auto;
+}
+
+.calendar {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.calendar th {
+  padding: 8px 4px;
+  color: var(--mut);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendar td {
+  height: 72px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.calendar-day {
+  display: flex;
+  width: 100%;
+  min-height: 60px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 5px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.calendar-day:hover,
+.calendar-day[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--a) 12%, var(--surf));
+}
+
+.calendar-day.other-month {
+  color: var(--mut);
+  opacity: 0.65;
+}
+
+.calendar-day.today .day-number {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--a);
+  color: #fff;
+}
+
+.event-marker {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--a);
+  font-size: 11px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day-agenda {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.day-agenda h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.schedule-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schedule-list li {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.schedule-list li:first-child {
+  border-top: 0;
+}
+
+.schedule-list time {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--a);
+  font-weight: 700;
+}
+
+.empty-agenda {
+  color: var(--mut);
+}
+
+.sample-note {
+  margin: 14px 0 0;
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.medication-card {
+  max-width: 760px;
+}
+
+.adherence-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.chart-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.chart-heading h2,
+.adherence-charts h2 {
+  margin: 0 0 2px;
+  font-size: 18px;
+}
+
+.chart-heading .sub,
+.adherence-charts > .card > .sub {
+  margin-bottom: 8px;
+}
+
+.period-control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--mut);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.period-control select {
+  width: auto;
+  margin: 0;
+  padding: 5px 8px;
+  font-size: 13px;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  margin: 10px 0 0;
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-swatch.on-time {
+  background: var(--d);
+}
+
+.legend-swatch.late {
+  background: var(--b);
+}
+
+.data-chart {
+  display: block;
+  width: 100%;
+  min-height: 220px;
+  overflow: visible;
+}
+
+.data-chart .axis path,
+.data-chart .axis line {
+  stroke: var(--line);
+}
+
+.data-chart .axis text,
+.data-chart .chart-label {
+  fill: var(--mut);
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.data-chart .offset-zero {
+  stroke: var(--line);
+  stroke-dasharray: 4 3;
+}
+
+.data-chart .offset-line {
+  fill: none;
+  stroke: var(--a);
+  stroke-width: 2.5;
+}
+
+.data-chart .offset-point {
+  fill: var(--a);
+  stroke: var(--surf);
+  stroke-width: 1.5;
+}
+
+.medication-schedule {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.medication-schedule li {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.medication-schedule time,
+.time-placeholder {
+  color: var(--a);
+  font-weight: 700;
+}
+
+.medication-schedule h3 {
+  margin: 0 0 2px;
+  font-size: 16px;
+}
+
+.medication-schedule p {
+  margin: 0;
+  color: var(--mut);
+  font-size: 14px;
+}
+
+.schedule-tag {
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--bg);
+  color: var(--mut);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .card.wide {
@@ -278,13 +638,50 @@ svg text {
 }
 
 @media (max-width: 760px) {
+  .tabs {
+    margin-top: 12px;
+    padding: 0 14px;
+    overflow-x: auto;
+  }
+
+  .tab-button {
+    flex: none;
+    padding: 10px;
+  }
+
   main {
     grid-template-columns: 1fr;
     padding: 14px;
+  }
+
+  .page-panel {
+    padding: 14px;
+  }
+
+  .calendar-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .medication-schedule li {
+    grid-template-columns: 82px 1fr;
+    gap: 10px;
+  }
+
+  .chart-heading {
+    flex-direction: column;
+  }
+
+  .schedule-tag {
+    grid-column: 2;
+    justify-self: start;
   }
 
   .tag {
     margin-left: 0;
   }
 }
-

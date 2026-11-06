@@ -16,7 +16,19 @@
       <span class="tag">Wireframe · sample data</span>
     </header>
 
-    <main>
+    <nav class="tabs" role="tablist" aria-label="Patient information">
+      <button class="tab-button" id="dashboard-tab" type="button" role="tab" aria-selected="true" aria-controls="dashboard-panel" tabindex="0">
+        Dashboard
+      </button>
+      <button class="tab-button" id="calendar-tab" type="button" role="tab" aria-selected="false" aria-controls="calendar-panel" tabindex="-1">
+        Appointments
+      </button>
+      <button class="tab-button" id="medications-tab" type="button" role="tab" aria-selected="false" aria-controls="medications-panel" tabindex="-1">
+        Medication times
+      </button>
+    </nav>
+
+    <main id="dashboard-panel" class="tab-panel" role="tabpanel" aria-labelledby="dashboard-tab">
       <aside>
         <h2>Customize view</h2>
 
@@ -141,7 +153,110 @@
       </section>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-    <script src="app.js"></script>
+    <section id="calendar-panel" class="tab-panel page-panel" role="tabpanel" aria-labelledby="calendar-tab" hidden>
+      <div class="card calendar-card">
+        <div class="calendar-heading">
+          <div>
+            <h2>Appointments</h2>
+            <p class="sub">Select a date to view scheduled visits.</p>
+          </div>
+          <div class="calendar-controls" aria-label="Calendar navigation">
+            <button class="calendar-nav" id="previous-month" type="button" aria-label="Previous month">&larr;</button>
+            <h3 id="calendar-month" aria-live="polite"></h3>
+            <button class="calendar-nav" id="next-month" type="button" aria-label="Next month">&rarr;</button>
+          </div>
+        </div>
+        <div class="calendar-layout">
+          <div class="calendar-table-wrap">
+            <table class="calendar">
+              <thead>
+                <tr>
+                  <th scope="col">Sun</th>
+                  <th scope="col">Mon</th>
+                  <th scope="col">Tue</th>
+                  <th scope="col">Wed</th>
+                  <th scope="col">Thu</th>
+                  <th scope="col">Fri</th>
+                  <th scope="col">Sat</th>
+                </tr>
+              </thead>
+              <tbody id="calendar-days"></tbody>
+            </table>
+          </div>
+          <section class="day-agenda" aria-labelledby="agenda-heading">
+            <h3 id="agenda-heading"></h3>
+            <ul id="appointment-list" class="schedule-list"></ul>
+          </section>
+        </div>
+        <p class="sample-note">Sample schedule for demonstration only.</p>
+      </div>
+    </section>
+
+    <section id="medications-panel" class="tab-panel page-panel" role="tabpanel" aria-labelledby="medications-tab" hidden>
+      <div class="card medication-card">
+        <h2>Medication times</h2>
+        <p class="sub">A sample daily schedule. Follow the patient's current care plan for actual medication instructions.</p>
+        <ul class="medication-schedule">
+          <li>
+            <time datetime="07:00">7:00 AM</time>
+            <div>
+              <h3>Controller inhaler</h3>
+              <p>Scheduled morning dose</p>
+            </div>
+            <span class="schedule-tag">Daily</span>
+          </li>
+          <li>
+            <time datetime="20:00">8:00 PM</time>
+            <div>
+              <h3>Controller inhaler</h3>
+              <p>Scheduled evening dose</p>
+            </div>
+            <span class="schedule-tag">Daily</span>
+          </li>
+          <li>
+            <span class="time-placeholder">As needed</span>
+            <div>
+              <h3>Rescue inhaler</h3>
+              <p>Use according to the patient's action plan.</p>
+            </div>
+            <span class="schedule-tag">PRN</span>
+          </li>
+        </ul>
+        <p class="sample-note">Times and medication names shown are placeholders, not a prescription.</p>
+      </div>
+
+      <div class="adherence-charts">
+        <div class="card">
+          <div class="chart-heading">
+            <div>
+              <h2>Dose timing by period</h2>
+              <p class="sub">Late doses are shown at the bottom of each bar.</p>
+            </div>
+            <label class="period-control" for="adherence-period">
+              Group by
+              <select id="adherence-period">
+                <option value="week">Week · last 4 weeks</option>
+                <option value="month">Month · last 6 months</option>
+              </select>
+            </label>
+          </div>
+          <div class="chart-legend" aria-hidden="true">
+            <span><i class="legend-swatch on-time"></i>On time</span>
+            <span><i class="legend-swatch late"></i>Late</span>
+          </div>
+          <svg id="adherence-bars" class="data-chart" role="img" aria-label="Stacked bar chart of on-time and late medication doses"></svg>
+        </div>
+
+        <div class="card">
+          <h2>Timing offset trend</h2>
+          <p class="sub">Average minutes from scheduled time. Below zero is early; above zero is late.</p>
+          <svg id="offset-trend" class="data-chart" role="img" aria-label="Line chart showing average medication timing offset in minutes"></svg>
+        </div>
+      </div>
+      <p class="sample-note">Charts use illustrative sample data. “On time” means taken within 30 minutes of the scheduled time; this display is not a medication instruction.</p>
+    </section>
+
+    <script src="js/d3.v6.min.js"></script>
+    <script src="js/start.js"></script>
   </body>
 </html>
