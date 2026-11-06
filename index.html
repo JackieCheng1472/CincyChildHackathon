@@ -1,11 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>SMART@Home clinician view (wireframe)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Maya R., 11 · Asthma</h1>
+        <p>Last sync today 7:42 AM · Next visit Nov 19 · Pulmonology</p>
+      </div>
+      <span class="tag">Wireframe · sample data</span>
+    </header>
+
+    <main>
+      <aside>
+        <h2>Customize view</h2>
+
+        <label for="spec" style="display:block;font-size:13px;color:var(--mut)">Specialty preset</label>
+        <select id="spec">
+          <option value="pulm">Pulmonology</option>
+          <option value="pcp">Primary care</option>
+          <option value="coord">Care coordinator</option>
+        </select>
+
+        <label for="win" style="display:block;font-size:13px;color:var(--mut)">Time window</label>
+        <select id="win">
+          <option value="30">Last 30 days</option>
+          <option value="14">Last 14 days</option>
+          <option value="7">Last 7 days</option>
+        </select>
+
+        <label for="hor" style="display:block;font-size:13px;color:var(--mut)">Forecast horizon</label>
+        <select id="hor">
+          <option value="7">Next 7 days</option>
+          <option value="14">Next 14 days</option>
+        </select>
+
+        <label for="met" style="display:block;font-size:13px;color:var(--mut)">Lung function measure</label>
+        <select id="met">
+          <option value="pef">Peak flow</option>
+          <option value="fev1">FEV1</option>
+        </select>
+
+        <h2>Show widgets</h2>
+        <div id="tog"></div>
+      </aside>
+
+      <section class="grid" id="grid">
+        <div class="card wide" data-w="sum">
+          <h3>What changed since the last visit</h3>
+          <p class="sub">The 30-second summary</p>
+          <div class="chg">
+            <div class="up"><b>Peak flow down 11%</b>Falling for 9 days, mostly after school sports.</div>
+            <div class="up"><b>Rescue inhaler up 2×</b>6 uses this week, 3 last week.</div>
+            <div class="ok"><b>Night symptoms stable</b>No night waking in 12 days.</div>
+            <div class="up"><b>2 school days missed</b>Both in the last 10 days.</div>
+          </div>
+        </div>
+
+        <div class="card" data-w="fc">
+          <h3>Flare risk forecast</h3>
+          <p class="sub">Home spirometry, % of personal best, with projected range</p>
+          <div class="risk">
+            <span class="n" id="rn"></span>
+            <span class="pill" id="rp"></span>
+            <span style="font-size:13px;color:var(--mut)" id="rt"></span>
+          </div>
+          <svg id="chart" viewBox="0 0 420 190" width="100%" role="img" aria-label="Peak flow trend and forecast"></svg>
+        </div>
+
+        <div class="card" data-w="adh">
+          <h3>Medication adherence</h3>
+          <p class="sub">Controller doses the patient marked as taken (self-reported, not verified)</p>
+          <div class="pie" id="p1"></div>
+        </div>
+
+        <div class="card" data-w="med">
+          <h3>Medication use</h3>
+          <p class="sub">Controller vs. rescue doses</p>
+          <div class="pie" id="p2"></div>
+        </div>
+
+        <div class="card" data-w="trg">
+          <h3>Reported triggers</h3>
+          <p class="sub">Share of symptom episodes</p>
+          <div class="pie" id="p3"></div>
+        </div>
+
+        <div class="card" data-w="zn">
+          <h3>Days by action plan zone</h3>
+          <p class="sub">Green, yellow and red from symptoms plus spirometry</p>
+          <div class="pie" id="p4"></div>
+        </div>
+
+        <div class="card wide" data-w="ano">
+          <h3>Flags for review</h3>
+          <p class="sub">Ranked by how likely they are to change treatment</p>
+          <ul class="an">
+            <li>
+              <span class="dot" style="background:var(--c)"></span>
+              <span><b>Rising rescue use before exercise.</b> Consider pre-exercise dosing or a step-up review.</span>
+            </li>
+            <li>
+              <span class="dot" style="background:var(--b)"></span>
+              <span><b>Missed evening doses cluster on Tue and Thu.</b> Matches practice days; reminder timing may need to move.</span>
+            </li>
+            <li>
+              <span class="dot" style="background:var(--d)"></span>
+              <span><b>Entries are consistent.</b> 27 of 30 days logged, so the trend is reliable.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card wide" data-w="dq">
+          <h3>Data notes</h3>
+          <p class="sub">What the view cleaned up so the clinician does not have to</p>
+          <ul class="an">
+            <li>
+              <span class="dot" style="background:var(--a)"></span>
+              <span><b>30 submissions merged into 18 days.</b> The last entry of each day counts, and earlier edits stay one click away.</span>
+            </li>
+            <li>
+              <span class="dot" style="background:var(--a)"></span>
+              <span><b>7 blank entries hidden.</b> Started but not completed.</span>
+            </li>
+            <li>
+              <span class="dot" style="background:var(--b)"></span>
+              <span><b>3 of 6 spirometer blows rejected by the device.</b> Only accepted blows feed the trend.</span>
+            </li>
+            <li>
+              <span class="dot" style="background:var(--b)"></span>
+              <span><b>Last data received Jun 24, 2026.</b> Taken from doses and spirometry, not only the tracker grid.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
